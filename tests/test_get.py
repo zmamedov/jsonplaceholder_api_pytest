@@ -1,4 +1,4 @@
-from jsonplaceholder-api-pytest.api.posts_api import PostsApi
+from jsonplaceholder_api_pytest.api.posts_api import PostsApi
 
 
 def test_get_all_posts(base_url):
