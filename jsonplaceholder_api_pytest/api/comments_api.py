@@ -1,4 +1,4 @@
-# File with logic of "comments"
+# File with logic of endpoint "comments"
 
 
 import requests

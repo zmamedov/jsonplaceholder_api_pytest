@@ -1,9 +1,11 @@
+# File with checks of response
+
 from jsonschema import validate
 from jsonschema.exceptions import ValidationError
 from jsonplaceholder_api_pytest.schemas.json_schemas import SMOKE_ARRAY_SCHEMA
 
 
-class PostsAssert:
+class ResponseAssert:
     def __init__(self, response):
         self.response = response
 
@@ -26,4 +28,3 @@ class PostsAssert:
             assert False, f"JSON does not match schema: {e.message}"
 
         return self
-
