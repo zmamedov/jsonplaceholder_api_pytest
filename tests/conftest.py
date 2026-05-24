@@ -2,12 +2,12 @@ import os
 import pytest
 from dotenv import load_dotenv
 
-from jsonplaceholder_api_pytest.api.comments_api import CommentsApi
-from jsonplaceholder_api_pytest.api.posts_api import PostsApi
-from jsonplaceholder_api_pytest.api.photos_api import PhotosApi
-from jsonplaceholder_api_pytest.api.albums_api import AlbumsApi
-from jsonplaceholder_api_pytest.api.todos_api import TodosApi
-from jsonplaceholder_api_pytest.api.users_api import UsersApi
+from jsonplaceholder_api_pytest.api.clients.comments_api import CommentsApi
+from jsonplaceholder_api_pytest.api.clients.posts_api import PostsApi
+from jsonplaceholder_api_pytest.api.clients.photos_api import PhotosApi
+from jsonplaceholder_api_pytest.api.clients.albums_api import AlbumsApi
+from jsonplaceholder_api_pytest.api.clients.todos_api import TodosApi
+from jsonplaceholder_api_pytest.api.clients.users_api import UsersApi
 
 
 load_dotenv()
