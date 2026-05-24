@@ -10,11 +10,13 @@ class PostsAssert:
     def status_code_should_be(self, status_code):
         assert self.response.status_code == status_code, \
             f"Expected status code {status_code}, actual {self.response.status_code}"
+        
         return self
 
     def content_type_should_be_json(self):
         content_type = self.response.headers.get("Content-Type", "")
         assert "application/json" in content_type, f"Expected JSON, but content type {content_type}"
+        
         return self
     
     def should_match_basic_schema(self):

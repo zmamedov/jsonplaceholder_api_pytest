@@ -1,15 +1,29 @@
 from jsonplaceholder_api_pytest.api.posts_api import PostsApi
+from jsonplaceholder_api_pytest.api.comments_api import CommentsApi
 from jsonplaceholder_api_pytest.api.posts_assert import PostsAssert
 
 
 def test_get_all_posts(base_url):
     posts_api = PostsApi(base_url)
+
     response = posts_api.get_all_posts()
+    
     (PostsAssert(response)
      .status_code_should_be(200)
      .content_type_should_be_json()
      .should_match_basic_schema())
 
+
+def test_get_all_comments(base_url):
+    comments_api = CommentsApi(base_url)
+
+    response = comments_api.get_all_comments()
+
+    (PostsAssert(response)
+     .status_code_should_be(200)
+     .content_type_should_be_json()
+     .should_match_basic_schema())
+    
 # def test_get_all_comments(base_url):
 #     payload = {}
 #     headers = {}
