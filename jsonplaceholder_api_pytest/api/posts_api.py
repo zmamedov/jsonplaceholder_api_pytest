@@ -11,3 +11,6 @@ class PostsApi:
     def get_single_post(self, post_id):
         return requests.get(f"{self.url}/{post_id}")
     
+    def get_all_comments(self):
+        return requests.get(f"{self.url}/comments")
+    
