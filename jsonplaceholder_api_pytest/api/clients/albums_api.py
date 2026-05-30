@@ -5,7 +5,7 @@ import requests
 
 
 class AlbumsApi:
-    def __init__(self, base_url):
+    def __init__(self, base_url: str):
         self.url = f"{base_url}/albums"
 
     # Send GET request to get all albums

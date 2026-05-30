@@ -5,7 +5,7 @@ import requests
 
 
 class PhotosApi:
-    def __init__(self, base_url):
+    def __init__(self, base_url: str):
         self.url = f"{base_url}/photos"
 
     # Send GET request to get all photos
