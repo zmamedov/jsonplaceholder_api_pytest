@@ -2,3 +2,4 @@ requests==2.33.1
 pytest==9.0.3
 python-dotenv==1.2.2
 jsonschema
+pydantic==2.13.4

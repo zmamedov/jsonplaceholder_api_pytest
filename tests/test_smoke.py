@@ -1,4 +1,4 @@
-from jsonplaceholder_api_pytest.api.response_assert import ResponseAssert
+from jsonplaceholder_api_pytest.api.assertions.response_assert import ResponseAssert
 
 
 def test_get_all_posts(posts_api):
