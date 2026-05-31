@@ -2,10 +2,15 @@ from jsonplaceholder_api_pytest.api.assertions.posts_assert import PostsAssert
 
 
 def test_get_single_post_by_valid_id(posts_api):
-    # Validation scheme
+    """
+    Test-case 7: Get a single post by valid ID.
+    Check response, Pydantic model and field values.
+    """
     response = posts_api.get_single_post(post_id=1)
 
     (PostsAssert(response)
      .status_code_should_be(200)
      .content_type_should_be_json()
-     .should_match_post_schema())
+     .should_match_post_schema()
+     .should_have_field_value("id", 1)
+     .should_have_field_value("userId", 1))
