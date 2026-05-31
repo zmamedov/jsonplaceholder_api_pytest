@@ -8,4 +8,4 @@ def test_get_single_post_by_valid_id(posts_api):
     (PostsAssert(response)
      .status_code_should_be(200)
      .content_type_should_be_json()
-     )
+     .should_match_post_schema())
