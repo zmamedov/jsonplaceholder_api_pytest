@@ -1,8 +1,8 @@
-from pydantic import BaseModel
+from pydantic import BaseModel, Field
 
 
 class PostModel(BaseModel):
-    userId: int
+    user_id: int = Field(alias='userId')
     id: int
     title: str
     body: str
