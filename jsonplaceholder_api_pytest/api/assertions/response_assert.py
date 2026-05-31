@@ -8,6 +8,7 @@ from jsonplaceholder_api_pytest.schemas.json_schemas import SMOKE_ARRAY_SCHEMA
 class ResponseAssert:
     def __init__(self, response):
         self.response = response
+        self.json_data = self.response.json()
 
     def status_code_should_be(self, status_code):
         assert self.response.status_code == status_code, \
