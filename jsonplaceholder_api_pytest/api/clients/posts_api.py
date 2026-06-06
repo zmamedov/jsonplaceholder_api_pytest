@@ -43,3 +43,13 @@ class PostsApi:
         """
         return requests.get(f"{self.url}/{post_id}/comments")
     
+    def get_all_posts_by_user(self, user_id: int):
+        """
+        GET /posts?userId={id}
+        Retrieves all posts created by a specific user.
+
+        :param user_id: The unique identifier of the user (e.g., 1).
+        :return: A requests.Response object containing an array of posts.
+        """
+        return requests.get(f"{self.url}?userId={user_id}")
+    

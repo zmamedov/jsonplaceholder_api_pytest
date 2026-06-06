@@ -1,10 +1,11 @@
-# File with logic of endpoint "comments"
-
-
 import requests
 
 
 class CommentsApi:
+    """
+    API client for interacting with /comments endpoint.
+    Provides wrapper methods to perform full CRUD operations on comments.
+    """
     def __init__(self, base_url: str):
         self.url = f"{base_url}/comments"
 

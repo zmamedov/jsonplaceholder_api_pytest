@@ -1,4 +1,4 @@
-from pydantic import ValidationError
+from pydantic import TypeAdapter, ValidationError
 from jsonplaceholder_api_pytest.api.assertions.response_assert import ResponseAssert
 from jsonplaceholder_api_pytest.schemas.pydentic_models import PostModel
 
@@ -19,4 +19,19 @@ class PostsAssert(ResponseAssert):
         actual_value = self.json_data.get(field_name)
         assert actual_value == expected_value, \
             f"Expected {field_name} = {expected_value}, but got {actual_value}"
+        return self
+
+    def all_posts_should_belong_to_user(self, user_id: int):
+        """Check that all posts belong to specific user."""
+        for post in self.json_data:
+            assert post["userId"] == user_id, \
+                f"Post {post['id']} belongs to user {post['userId']} instead of {user_id}"
+        return self
+
+    def should_match_posts_list_schema(self):
+        """Check that response is a list and each element matches PostModel."""
+        try:
+            TypeAdapter(list[PostModel]).validate_python(self.json_data)
+        except ValidationError as e:
+            assert False, f"Validation error Pydantic model for list posts:\n{e}"
         return self
