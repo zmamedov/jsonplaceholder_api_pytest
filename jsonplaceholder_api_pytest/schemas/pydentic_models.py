@@ -10,3 +10,15 @@ class PostModel(BaseModel):
     id: int
     title: str
     body: str
+
+
+class CommentModel(BaseModel):
+    """Validation scheme for one comment with endpoint /posts/{id}/comments."""
+
+    model_config = ConfigDict(strict=True)
+
+    post_id: int = Field(alias='postId')
+    id: int
+    name: str
+    email: str
+    body: str
