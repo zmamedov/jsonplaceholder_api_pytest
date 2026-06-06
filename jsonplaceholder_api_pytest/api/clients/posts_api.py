@@ -32,4 +32,14 @@ class PostsApi:
         :return: A requests.Response object with post data or an error payload.
         """
         return requests.get(f"{self.url}/{post_id}")
+
+    def get_nested_comments(self, post_id: int):
+        """
+        GET /posts/{id}/comments
+        Retrieves all comments nested under a specific post.
+
+        :param post_id: The unique identifier of the post (e.g., 1).
+        :return: A requests.Response object containing an array of comments.
+        """
+        return requests.get(f"{self.url}/{post_id}/comments")
     

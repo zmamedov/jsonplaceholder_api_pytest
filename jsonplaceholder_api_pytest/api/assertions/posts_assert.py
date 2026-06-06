@@ -7,8 +7,7 @@ class PostsAssert(ResponseAssert):
     """Custom asserts of 'Post', extended base ResponseAssert."""
 
     def should_match_post_schema(self):
-        """Check response is corresponding of model in PostModel."""
-
+        """Check that response matches PostModel."""
         try:
             PostModel.model_validate(self.json_data)
         except ValidationError as e:
@@ -17,7 +16,6 @@ class PostsAssert(ResponseAssert):
 
     def should_have_field_value(self, field_name: str, expected_value):
         """Check specific field value of response."""
-
         actual_value = self.json_data.get(field_name)
         assert actual_value == expected_value, \
             f"Expected {field_name} = {expected_value}, but got {actual_value}"
