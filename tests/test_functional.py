@@ -49,3 +49,39 @@ def test_get_all_posts_by_user_id(posts_api):
      .content_type_should_be_json()
      .should_match_posts_list_schema()
      .all_posts_should_belong_to_user(target_user_id))
+
+
+def test_get_posts_with_pagination(posts_api):
+    """
+    Test-case 10: Get posts with pagination.
+    Check that response contains posts from a specific pagination page, they are valid list and count = 5.
+    """
+    target_page = 2
+    limit = 5
+
+    response = posts_api.get_posts_paginated(page=target_page, limit=limit)
+
+    (PostsAssert(response)
+     .status_code_should_be(200)
+     .content_type_should_be_json()
+     .should_match_posts_list_schema()
+     .should_have_length(limit)
+     .x_total_count_should_be_present())
+
+
+def test_create_new_post(posts_api):
+    """
+    Test-case 11: Create new post.
+    Check that a post is created successfully and it is correct.
+    """
+    payload = posts_api.generate_random_post_payload()
+
+    response = posts_api.create_post(payload=payload)
+
+    (PostsAssert(response)
+     .status_code_should_be(201)
+     .content_type_should_be_json()
+     .should_match_post_schema()
+     .should_have_field_value("title", payload["title"])
+     .should_have_field_value("body", payload["body"])
+     .should_have_field_value("userId", payload["userId"]))

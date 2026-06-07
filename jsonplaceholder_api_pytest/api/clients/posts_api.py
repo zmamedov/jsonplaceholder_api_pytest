@@ -1,4 +1,6 @@
 import requests
+import random
+from faker import Faker
 
 
 class PostsApi:
@@ -6,6 +8,7 @@ class PostsApi:
     API client for interacting with /posts endpoint.
     Provides wrapper methods to perform full CRUD operations on posts.
     """
+
     def __init__(self, base_url: str):
         """
         Initializes the client with the core endpoints.
@@ -22,7 +25,17 @@ class PostsApi:
         :return: A requests.Response object containing an array of posts.
         """
         return requests.get(self.url)
-    
+
+    def create_post(self, payload: dict):
+        """
+        POST /posts
+        Creates a new post with the specified payload.
+
+        :param payload: The data of the post.
+        :return: A requests.Response object with the newly created post data.
+        """
+        return requests.post(self.url, json=payload)
+
     def get_single_post(self, post_id: int):
         """
         GET /posts/{id}
@@ -42,7 +55,7 @@ class PostsApi:
         :return: A requests.Response object containing an array of comments.
         """
         return requests.get(f"{self.url}/{post_id}/comments")
-    
+
     def get_all_posts_by_user(self, user_id: int):
         """
         GET /posts?userId={id}
@@ -52,4 +65,29 @@ class PostsApi:
         :return: A requests.Response object containing an array of posts.
         """
         return requests.get(f"{self.url}?userId={user_id}")
-    
+
+    def get_posts_paginated(self, page: int, limit: int):
+        """
+        GET /posts?_page={page}&_limit={limit}
+        Retrieves a paginated list of posts.
+
+        :param page: The page number to retrieve (e.g., 1).
+        :param limit: The number of posts to return per page (e.g., 10).
+        :return: A requests.Response object containing an array of posts.
+        """
+        return requests.get(f"{self.url}?_page={page}&_limit={limit}")
+
+    @staticmethod
+    def generate_random_post_payload():
+        """
+        Generates a random post payload for testing purposes.
+
+        :return: A dictionary containing the post data.
+        """
+        fake = Faker()
+
+        return {
+            "title": fake.sentence(nb_words=4),
+            "body": fake.paragraph(nb_sentences=3),
+            "userId": random.randint(1, 10)
+        }

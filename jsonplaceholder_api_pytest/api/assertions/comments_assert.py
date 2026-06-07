@@ -14,7 +14,8 @@ class CommentsAssert(ResponseAssert):
             # since BaseModel.model_validate() only accepts top-level dictionaries.
             TypeAdapter(list[CommentModel]).validate_python(self.json_data)
         except ValidationError as e:
-            assert False, f"Validation error Pydantic model for list comments:\n{e}"
+            raise AssertionError(f"Validation error Pydantic model for list comments!\n{e}") from e
+
         return self
 
     def all_comments_should_belong_to_post(self, expected_post_id: int):
@@ -22,9 +23,5 @@ class CommentsAssert(ResponseAssert):
         for comment in self.json_data:
             assert comment['postId'] == expected_post_id, \
                 f"Comment belongs to post {comment['postId']} instead of {expected_post_id}"
-        return self
 
-    def should_have_length(self, expected_length: int):
-        """Check count of comments in the post"""
-        actual_length = len(self.json_data)
-        assert actual_length == expected_length, f"Expected {expected_length} comments, but got {actual_length}"
+        return self
