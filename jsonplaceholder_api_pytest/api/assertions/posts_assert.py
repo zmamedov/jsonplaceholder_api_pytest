@@ -31,6 +31,9 @@ class PostsAssert(ResponseAssert):
     def should_match_posts_list_schema(self):
         """Check that response is a list and each element matches PostModel."""
         try:
+            # Parsed list of comments.
+            # TypeAdapter is required here to validate a top-level JSON array (List)
+            # since BaseModel.model_validate() only accepts top-level dictionaries.
             TypeAdapter(list[PostModel]).validate_python(self.json_data)
         except ValidationError as e:
             assert False, f"Validation error Pydantic model for list posts:\n{e}"

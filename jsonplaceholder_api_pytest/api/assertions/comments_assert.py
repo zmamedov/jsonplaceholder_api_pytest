@@ -23,8 +23,3 @@ class CommentsAssert(ResponseAssert):
             assert comment['postId'] == expected_post_id, \
                 f"Comment belongs to post {comment['postId']} instead of {expected_post_id}"
         return self
-
-    def should_have_length(self, expected_length: int):
-        """Check count of comments in the post"""
-        actual_length = len(self.json_data)
-        assert actual_length == expected_length, f"Expected {expected_length} comments, but got {actual_length}"

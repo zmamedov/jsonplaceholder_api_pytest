@@ -53,3 +53,14 @@ class PostsApi:
         """
         return requests.get(f"{self.url}?userId={user_id}")
     
+    def get_posts_paginated(self, page: int, limit: int):
+        """
+        GET /posts?_page={page}&_limit={limit}
+        Retrieves a paginated list of posts.
+
+        :param page: The page number to retrieve (e.g., 1).
+        :param limit: The number of posts to return per page (e.g., 10).
+        :return: A requests.Response object containing an array of posts.
+        """
+        return requests.get(f"{self.url}?_page={page}&_limit={limit}")
+    
