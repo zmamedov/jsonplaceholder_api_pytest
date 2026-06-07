@@ -67,4 +67,21 @@ def test_get_posts_with_pagination(posts_api):
      .should_match_posts_list_schema()
      .should_have_length(limit)
      .x_total_count_should_be_present())
-    
+
+
+def test_create_new_post(posts_api):
+    """
+    Test-case 11: Create new post.
+    Check that a post is created successfully and it is correct.
+    """
+    payload = posts_api.generate_random_post_payload()
+
+    response = posts_api.create_post(payload=payload)
+
+    (PostsAssert(response)
+     .status_code_should_be(201)
+     .content_type_should_be_json()
+     .should_match_post_schema()
+     .should_have_field_value("title", payload["title"])
+     .should_have_field_value("body", payload["body"])
+     .should_have_field_value("userId", payload["userId"]))
