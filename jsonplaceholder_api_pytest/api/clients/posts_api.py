@@ -35,6 +35,17 @@ class PostsApi:
         :return: A requests.Response object with the newly created post data.
         """
         return requests.post(self.url, json=payload)
+    
+    def update_post(self, post_id: int, payload: dict):
+        """
+        PUT /posts/{id}
+        Updates an existing post with the specified payload.
+
+        :param post_id: The unique identifier of the post (e.g., 1).
+        :param payload: The data to update the post with.
+        :return: A requests.Response object with the updated post data.
+        """
+        return requests.put(f"{self.url}/{post_id}", json=payload)
 
     def get_single_post(self, post_id: int):
         """
