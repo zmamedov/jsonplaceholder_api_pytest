@@ -42,3 +42,16 @@ class PostsAssert(ResponseAssert):
             raise AssertionError(f"Validation error Pydantic model for list posts!\n{e}") from e
 
         return self
+
+    def should_have_empty_body(self):
+        """Check that response is an empty dictionary."""
+        assert self.json_data == {}, f"Expected empty JSON response {{}}, but got: {self.json_data}"
+
+        return self
+
+    def field_should_not_be_empty(self, field_name: str):
+        """Check that field in the response and it isn't empty"""
+        assert field_name in self.json_data, f"Field {field_name} not found in response"
+        assert self.json_data[field_name], f"Field {field_name} is empty"
+
+        return self

@@ -47,6 +47,27 @@ class PostsApi:
         """
         return requests.put(f"{self.url}/{post_id}", json=payload)
 
+    def partial_update_post(self, post_id: int, payload: dict):
+        """
+        PATCH /posts/{id}
+        Partial updating of an existing post with the specified payload.
+
+        :param post_id: The unique identifier of the post (e.g., 1).
+        :param payload: The data to update the post with.
+        :return: A requests.Response object with the updated post data.
+        """
+        return requests.patch(f"{self.url}/{post_id}", json=payload)
+    
+    def delete_post(self, post_id: int):
+        """
+        DELETE /posts/{id}
+        Deletes an existing post by its unique ID.
+
+        :param post_id: The unique identifier of the post (e.g., 1).
+        :return: An empty requests.Response object.
+        """
+        return requests.delete(f"{self.url}/{post_id}")
+
     def get_single_post(self, post_id: int):
         """
         GET /posts/{id}
