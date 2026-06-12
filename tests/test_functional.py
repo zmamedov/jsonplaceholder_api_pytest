@@ -72,7 +72,7 @@ def test_get_posts_with_pagination(posts_api):
 def test_create_new_post(posts_api):
     """
     Test-case 11: Create new post.
-    Check that a post is created successfully and it is correct.
+    Check that a post is successfully created and it is correct.
     """
     payload = posts_api.generate_random_post_payload()
 
@@ -85,3 +85,65 @@ def test_create_new_post(posts_api):
      .should_have_field_value("title", payload["title"])
      .should_have_field_value("body", payload["body"])
      .should_have_field_value("userId", payload["userId"]))
+
+
+def test_update_post(posts_api):
+    """
+    Test-case 12: Update post.
+    Check that specified data in a post is updated.
+    """
+    target_post_id = 2
+    payload = {
+        "userId": 1,
+        "id": target_post_id,
+        "title": "Update: New post title",
+        "body": "New body for the test PUT"
+    }
+
+    response = posts_api.update_post(post_id=target_post_id, payload=payload)
+
+    (PostsAssert(response)
+     .status_code_should_be(200)
+     .content_type_should_be_json()
+     .should_match_post_schema()
+     .should_have_field_value("title", payload["title"])
+     .should_have_field_value("body", payload["body"])
+     .should_have_field_value("userId", payload["userId"])
+     .should_have_field_value("id", target_post_id))
+
+
+def test_update_body_of_post_patch(posts_api):
+    """
+    Test-case 13: Update body of post (PATCH).
+    Check that a post's body is changed, other fields aren't changed.
+    """
+    target_post_id = 2
+    payload = {
+        "body": "New body for the test PATCH"
+    }
+
+    response = posts_api.partial_update_post(post_id=target_post_id, payload=payload)
+
+    (PostsAssert(response)
+     .status_code_should_be(200)
+     .content_type_should_be_json()
+     .should_match_post_schema()
+     .should_have_field_value("body", payload["body"])
+     .should_have_field_value("id", target_post_id)
+     .field_should_not_be_empty("title")
+     .field_should_not_be_empty("userId"))
+
+
+def test_delete_post(posts_api):
+    """
+    Test-case 14: Delete post.
+    Check that a post is successfully deleted.
+    """
+    target_post_id = 2
+
+    response = posts_api.delete_post(post_id=target_post_id)
+
+    (PostsAssert(response)
+     .status_code_should_be(200)
+     .content_type_should_be_json()
+     .should_have_empty_body())
