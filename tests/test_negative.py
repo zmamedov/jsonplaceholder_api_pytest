@@ -12,3 +12,17 @@ def test_get_non_existent_post(posts_api):
     (PostsAssert(response)
      .status_code_should_be(404)
      .should_have_empty_body())
+
+
+def test_get_posts_by_invalid_query_parameter(posts_api):
+    """
+    Test-case 16: Get posts by invalid query parameter.
+    Note: JSONPlaceholder treats unknown params by ignoring them or returning empty results.
+    Check that it doesn't crash (returns 200).
+    """
+    invalid_params = {"userId": "invalid_value"}
+    response = posts_api.get_posts_by_custom_params(params=invalid_params)
+
+    (PostsAssert(response)
+     .status_code_should_be(200)
+     .should_be_empty_list())

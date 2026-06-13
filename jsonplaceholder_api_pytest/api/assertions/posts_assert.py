@@ -48,6 +48,13 @@ class PostsAssert(ResponseAssert):
         assert self.json_data == {}, f"Expected empty JSON response {{}}, but got: {self.json_data}"
 
         return self
+    
+    def should_be_empty_list(self):
+        """Check that response is an empty list."""
+        assert isinstance(self.json_data, list), f"Expected list in response, but got {type(self.json_data)}"
+        assert len(self.json_data) == 0, f"Expected empty list [], but got elements: {self.json_data}"
+        
+        return self
 
     def field_should_not_be_empty(self, field_name: str):
         """Check that field in the response and it isn't empty"""

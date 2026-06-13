@@ -123,3 +123,13 @@ class PostsApi:
             "body": fake.paragraph(nb_sentences=3),
             "userId": random.randint(1, 10)
         }
+    
+    def get_posts_by_custom_params(self, params: dict):
+        """
+        GET /posts?param={param_values}
+        Retrieves posts by custom query-parameters.
+
+        :param params: A dictionary containing the query-parameters.
+        :return: A requests.Response object containing an array of posts or an error payload.
+        """
+        return requests.get(self.url, params=params)
