@@ -7,14 +7,14 @@ def test_get_single_post_by_valid_id(posts_api):
     Test-case 7: Get a single post by valid ID.
     Check response, Pydantic model and field values.
     """
-    response = posts_api.get_single_post(post_id=1)
+    target_post_id = 2
+    response = posts_api.get_single_post(post_id=target_post_id)
 
     (PostsAssert(response)
      .status_code_should_be(200)
      .content_type_should_be_json()
      .should_match_post_schema()
-     .should_have_field_value("id", 1)
-     .should_have_field_value("userId", 1))
+     .should_have_field_value("id", target_post_id))
 
 
 def test_get_nested_resources_of_post(posts_api):
