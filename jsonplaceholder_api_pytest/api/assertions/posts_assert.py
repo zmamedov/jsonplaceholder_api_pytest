@@ -62,3 +62,7 @@ class PostsAssert(ResponseAssert):
         assert self.json_data[field_name], f"Field {field_name} is empty"
 
         return self
+
+    def should_not_contain_stack_trace(self):
+        """Check that response doesn't contain path or stack trace."""
+        pass

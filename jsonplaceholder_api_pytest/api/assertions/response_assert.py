@@ -1,5 +1,4 @@
-# File with checks of response
-
+import requests
 from jsonschema import validate
 from jsonschema.exceptions import ValidationError
 from jsonplaceholder_api_pytest.schemas.json_schemas import SMOKE_ARRAY_SCHEMA
@@ -8,7 +7,10 @@ from jsonplaceholder_api_pytest.schemas.json_schemas import SMOKE_ARRAY_SCHEMA
 class ResponseAssert:
     def __init__(self, response):
         self.response = response
-        self.json_data = self.response.json()
+        try:
+            self.json_data = self.response.json()
+        except requests.exceptions.JSONDecodeError:
+            self.json_data = None
 
     def status_code_should_be(self, status_code):
         """Check status code"""

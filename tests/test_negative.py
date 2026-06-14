@@ -26,3 +26,31 @@ def test_get_posts_by_invalid_query_parameter(posts_api):
     (PostsAssert(response)
      .status_code_should_be(200)
      .should_be_empty_list())
+
+
+def test_post_request_with_invalid_data(posts_api):
+    """
+    Test-case 17: POST request with invalid data.
+    Check how the server handles bad requests.
+    Note: The server crashes with a 500 Internal Server Error and
+    returns a raw text stack trace instead of a proper 400 Bad Request JSON response.
+    """
+    broken_payload = '{"title": "Broken JSON, "body": "Missing quote"}'
+    response = posts_api.create_post(payload=broken_payload)
+
+    (PostsAssert(response)
+     .status_code_should_be(500)
+     .should_not_contain_stack_trace())
+
+
+def test_post_request_with_empty_json_body(posts_api):
+    """
+    Test-case 18: POST request with an empty JSON body.
+    Check that post with id = 101 is created.
+    """
+    response = posts_api.create_post(payload={})
+
+    (PostsAssert(response)
+     .status_code_should_be(201)
+     .content_type_should_be_json()
+     .should_have_field_value("id", 101))

@@ -133,3 +133,17 @@ class PostsApi:
         :return: A requests.Response object containing an array of posts or an error payload.
         """
         return requests.get(self.url, params=params)
+
+    def create_post_raw(self, raw_data: str, headers: dict = None):
+        """
+        POST /posts
+        POST request with raw body.
+
+        :param raw_data: The raw body of the post.
+        :param headers: Headers of the post.
+        :return: A requests.Response object with the newly created post data.
+        """
+        if headers is None:
+            headers = {"Content-Type": "application/json"}
+        return requests.post(self.url, data=raw_data, headers=headers)
+    
