@@ -1,5 +1,6 @@
 from jsonplaceholder_api_pytest.api.assertions.comments_assert import CommentsAssert
 from jsonplaceholder_api_pytest.api.assertions.posts_assert import PostsAssert
+from jsonplaceholder_api_pytest.data.post_data import PostData
 
 
 def test_get_single_post_by_valid_id(posts_api):
@@ -7,7 +8,7 @@ def test_get_single_post_by_valid_id(posts_api):
     Test-case 7: Get a single post by valid ID.
     Check response, Pydantic model and field values.
     """
-    target_post_id = 2
+    target_post_id = PostData.existing_post_id()
     response = posts_api.get_single_post(post_id=target_post_id)
 
     (PostsAssert(response)
@@ -24,7 +25,6 @@ def test_get_nested_resources_of_post(posts_api):
     """
     target_post_id = 1
     expected_comments_count = 5
-
     response = posts_api.get_nested_comments(post_id=target_post_id)
 
     (CommentsAssert(response)
@@ -41,7 +41,6 @@ def test_get_all_posts_by_user_id(posts_api):
     Check that posts belong to the specific user and they are valid list.
     """
     target_user_id = 10
-
     response = posts_api.get_all_posts_by_user(user_id=target_user_id)
 
     (PostsAssert(response)
@@ -58,7 +57,6 @@ def test_get_posts_with_pagination(posts_api):
     """
     target_page = 2
     limit = 5
-
     response = posts_api.get_posts_paginated(page=target_page, limit=limit)
 
     (PostsAssert(response)
@@ -74,8 +72,7 @@ def test_create_new_post(posts_api):
     Test-case 11: Create new post.
     Check that a post is successfully created and it is correct.
     """
-    payload = posts_api.generate_random_post_payload()
-
+    payload = PostData.generate_random_post_payload()
     response = posts_api.create_post(payload=payload)
 
     (PostsAssert(response)
@@ -92,14 +89,8 @@ def test_update_post(posts_api):
     Test-case 12: Update post.
     Check that specified data in a post is updated.
     """
-    target_post_id = 2
-    payload = {
-        "userId": 1,
-        "id": target_post_id,
-        "title": "Update: New post title",
-        "body": "New body for the test PUT"
-    }
-
+    target_post_id = PostData.existing_post_id()
+    payload = PostData.full_update_payload(post_id=target_post_id)
     response = posts_api.update_post(post_id=target_post_id, payload=payload)
 
     (PostsAssert(response)
@@ -117,11 +108,8 @@ def test_update_body_of_post_patch(posts_api):
     Test-case 13: Update body of post (PATCH).
     Check that a post's body is changed, other fields aren't changed.
     """
-    target_post_id = 2
-    payload = {
-        "body": "New body for the test PATCH"
-    }
-
+    target_post_id = PostData.existing_post_id()
+    payload = PostData.partial_update_payload()
     response = posts_api.partial_update_post(post_id=target_post_id, payload=payload)
 
     (PostsAssert(response)
@@ -139,8 +127,7 @@ def test_delete_post(posts_api):
     Test-case 14: Delete post.
     Check that a post is successfully deleted.
     """
-    target_post_id = 2
-
+    target_post_id = PostData.existing_post_id()
     response = posts_api.delete_post(post_id=target_post_id)
 
     (PostsAssert(response)
