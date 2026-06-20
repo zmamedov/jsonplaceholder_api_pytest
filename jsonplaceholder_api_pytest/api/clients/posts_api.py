@@ -1,6 +1,4 @@
 import requests
-import random
-from faker import Faker
 
 
 class PostsApi:
@@ -108,21 +106,6 @@ class PostsApi:
         :return: A requests.Response object containing an array of posts.
         """
         return requests.get(f"{self.url}?_page={page}&_limit={limit}")
-
-    @staticmethod
-    def generate_random_post_payload():
-        """
-        Generates a random post payload for testing purposes.
-
-        :return: A dictionary containing the post data.
-        """
-        fake = Faker()
-
-        return {
-            "title": fake.sentence(nb_words=4),
-            "body": fake.paragraph(nb_sentences=3),
-            "userId": random.randint(1, 10)
-        }
     
     def get_posts_by_custom_params(self, params: dict):
         """
