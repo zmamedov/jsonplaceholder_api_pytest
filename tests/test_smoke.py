@@ -17,9 +17,10 @@ def test_get_all_posts(posts_api):
 def test_get_all_comments(comments_api):
     """
     Test-case 2: Get all comments.
-    Check response and validation scheme.
+    Check response and validation scheme. Limit the response to 10 items to prevent huge network payloads
+    and performance bottlenecks.
     """
-    response = comments_api.get_all_comments()
+    response = comments_api.get_all_comments(page=1, limit=10)
 
     (ResponseAssert(response)
      .status_code_should_be(200)
@@ -30,9 +31,10 @@ def test_get_all_comments(comments_api):
 def test_get_all_photos(photos_api):
     """
     Test-case 3: Get all photos.
-    Check response and validation scheme.
+    Check response and validation scheme. Limit the response to 10 items to prevent huge network payloads
+    and performance bottlenecks.
     """
-    response = photos_api.get_all_photos()
+    response = photos_api.get_all_photos(page=1, limit=10)
 
     (ResponseAssert(response)
      .status_code_should_be(200)
