@@ -4,7 +4,7 @@ from faker import Faker
 
 class PostData:
     """
-    Post data Factory layer for API testing.
+    Post data factory layer for API testing.
     Isolates mock data generation and state definitions from test logic.
     """
 
