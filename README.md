@@ -127,7 +127,7 @@ source venv/bin/activate  # On Windows use: venv\Scripts\activate
 pip install -r requirements.txt
 ```
 
-### 4. Set up Environment Variables
+### 4. Set up environment variables
 
 The framework configuration is managed via environment variables. Copy the example configuration file and ensure `BASE_URL` points to the target API endpoint:
 
