@@ -107,7 +107,7 @@ The test suite covers **19 structured test scenarios** divided into four categor
 
 ## 🚀 Getting Started
 
-### 1. Clone the repository
+### 1. Clone the repository and navigate to the project root
 
 ```bash
 git clone https://github.com/zmamedov/jsonplaceholder_api_pytest.git
@@ -132,5 +132,5 @@ pip install -r requirements.txt
 To run all tests:
 
 ```bash
-pytest -v tests/
+pytest -v
 ```
