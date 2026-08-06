@@ -33,7 +33,8 @@ The framework is built using a **4-Layer Decoupled Architecture** to ensure maxi
 
 ```text
 jsonplaceholder_api_pytest/
-│
+├── .github/workflows/
+│   └── tests.yml
 ├── jsonplaceholder_api_pytest/
 |   ├── api/
 │   │   ├── assertions/
@@ -144,3 +145,11 @@ To run all tests:
 ```bash
 pytest -v
 ```
+
+
+### 6. CI/CD Integration
+The project is configured to automatically run tests via **GitHub Actions**. The pipeline is automatically launched upon:
+* Any `push` in the branch `main`
+* Creating `pull_request` in the branch `main`
+
+The run history and detailed execution logs are displayed in the tab **Actions** of this repository.
