@@ -1,6 +1,6 @@
 name: JSONPlaceholder API Automation Tests
 
-# Триггеры: запуск при пуше и пулл-реквестах в ветку main
+# Workflow runs while push or pull request in branch "main"
 on:
   push:
     branches: [ "main" ]
@@ -12,23 +12,18 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    # 1. Скачиваем код репозитория
-    - name: Checkout code
+    - name: Clone repo
       uses: actions/checkout@v4
 
-    # 2. Устанавливаем Python
     - name: Set up Python
       uses: actions/setup-python@v5
       with:
-        python-python: '3.11' # Укажите вашу версию Python
+        python-python: '3.12'
 
-    # 3. Устанавливаем зависимости
     - name: Install dependencies
       run: |
         python -m pip install --upgrade pip
         if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
 
-    # 4. Запускаем тесты Pytest
     - name: Run Pytest
-      run: |
-        pytest
+      run: pytest -v
