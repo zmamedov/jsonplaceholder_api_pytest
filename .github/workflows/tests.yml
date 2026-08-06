@@ -1,4 +1,4 @@
-name: API Automation Tests
+name: JSONPlaceholder API Automation Tests
 
 # Триггеры: запуск при пуше и пулл-реквестах в ветку main
 on:
