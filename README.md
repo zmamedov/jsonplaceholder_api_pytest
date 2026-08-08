@@ -153,3 +153,5 @@ The project is configured to automatically run tests via **GitHub Actions**. The
 * Creating `pull_request` in the branch `main`
 
 The run history and detailed execution logs are displayed in the tab **Actions** of this repository.
+
+![workflow_success](pictures/workflow_success.png)
